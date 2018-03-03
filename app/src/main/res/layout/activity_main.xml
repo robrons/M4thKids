@@ -19,7 +19,6 @@
         android:id="@+id/filler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="filler_fun"
         android:text="Filler Button"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />

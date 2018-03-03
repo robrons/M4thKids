@@ -15,32 +15,26 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.Random;
 
 public class topic_menu extends AppCompatActivity {
+    public static int level;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_menu);
         Button button = (Button)findViewById(R.id.button);
         Button button2 = (Button)findViewById(R.id.button2);
-        Random rand = new Random();
-        int level =  rand.nextInt(2);
-        if(level == 0)
-        {
+        if(level == 0) {
             button.setText(R.string.comparing);
             button2.setText(R.string.counting);
-
         }
-        else if(level == 1)
-        {
+        if(level == 1) {
             button.setText(R.string.adding);
             button2.setText(R.string.subing);
-
         }
-        else if(level == 2)
-        {
+        if(level == 2) {
             button.setText(R.string.times);
             button2.setText(R.string.divide);
-
         }
+
     }
 
     public void buttonOnClick(View v) {

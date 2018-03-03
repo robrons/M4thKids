@@ -14,11 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-
-    public void filler_fun(View view) {
-        Intent intent = new Intent(this, topic_menu.class);
+        Intent intent = new Intent(this, LevelMenu.class);
         startActivity(intent);
     }
 }

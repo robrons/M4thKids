@@ -4,10 +4,14 @@
     <string name="title_activity_topic_menu">topic_menu</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="counting">Counting</string>
+    <string name="counting">counting</string>
     <string name="comparing">comparing</string>
     <string name="adding">adding</string>
     <string name="subing">subtracting</string>
     <string name="times">times</string>
     <string name="divide">divide</string>
+    <string name="easy">EASY</string>
+    <string name="medium">MEDIUM</string>
+    <string name="hard">HARD</string>
+    <string name="title_activity_level_menu">LevelMenu</string>
 </resources>
