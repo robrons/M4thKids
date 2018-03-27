@@ -1,10 +1,13 @@
 package com.example.robin.m4thkidsapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,23 +23,30 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COL02 = "SoundEffects_on";
 
     public static final String TABLE_QUESTIONS = "Questions";
-    public static final String COL11 = "Difficulty";
-    public static final String COL12 = "Lesson";
-    public static final String COL13  = "AnswerType";
-    public static final String COL14 = "Question";
-    public static final String COL15 = "Answer";
-    public static final String COL16 = "is_Cat";
-    public static final String COL17 = "is_Icecream";
-    public static final String COL18 = "is_Dog";
-    public static final String COL19 = "BackgroundColor";
-    public static final String COL20 = "PossibleAnswers";
+//    public static final String COL11 = "Difficulty";
+//    public static final String COL12 = "Lesson";
+//    public static final String COL13  = "AnswerType";
+//    public static final String COL14 = "Question";
+//    public static final String COL15 = "Answer";
+//    public static final String COL16 = "is_Cat";
+//    public static final String COL17 = "is_Icecream";
+//    public static final String COL18 = "is_Dog";
+//    public static final String COL19 = "BackgroundColor";
+//    public static final String COL20 = "PossibleAnswers";
 
 
     SQLiteDatabase db;
 
     //Singleton design pattern
+
+    //What the Singleton does is set up a private constructor so the class can't be instantiated anywhere from outside of this own class.
+    //So, the class instantiates itself.
+    //The design pattern is responsible for guaranteeing 3 things:
+            //Only 1 instance of this class is ever instantiated at any time.
+            //That single instance is synced up everywhere it's accessed from.
+            //That singe instance is available everywhere throughout the package it's located in without having to be passed or even instantiated.
     private static DbHelper dbInstance;
-    public static synchronized DbHelper getsInstance(Context context)
+    public static synchronized DbHelper getsInstance(Context context) //don't try to call this function directly yourself
     {
         if (dbInstance == null)
             dbInstance = new DbHelper(context.getApplicationContext());
@@ -44,16 +54,20 @@ public class DbHelper extends SQLiteOpenHelper
     }
 
     //CONSTRUCTOR
+    //Because of how the Singleton works, an instance of this class will never be created from anywhere but in his class itself.
+    //That's why this its constructor is set to private.
+    //It's all...part of the plan."
     private DbHelper(Context context)  //whenever this is called, the database will be initialized.
     {
         super(context, DATABASE_NAME, null, DB_VERSION);
-        db = getWritableDatabase();
-//        tablesInfo = restoreDBState();
-
+        db = getWritableDatabase();//This calls onCreate()
     }
 
+
+
+    //System function, don't worry about this. It will never be called directly by the front end.
     @Override
-    public void onCreate(SQLiteDatabase db) //onCreate is called when the database file does not exist or has not been created yet.
+    public void onCreate(SQLiteDatabase db) //onCreate is called when the database file does not exist or has not been created yet, and is called at first access.
     {
         String CREATE_TABLE_Settings = "CREATE TABLE IF NOT EXISTS Settings (\"Music_on INTEGER, SoundEffects_on INTEGER)\";";
         db.execSQL(CREATE_TABLE_Settings);
@@ -62,6 +76,8 @@ public class DbHelper extends SQLiteOpenHelper
         db.execSQL(CREATE_TABLE_Questions);
     }
 
+
+    //Also System function, don't worry about this. It will never be called directly by the front end.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
@@ -70,10 +86,52 @@ public class DbHelper extends SQLiteOpenHelper
         onCreate(db);
     }
 
-//  DbHelper.getsInstance(getApplicationContext()).get_Music_and_Sound();
+
+    //This function is to set up the sound settings default values upon first launch.
+    //So the splash page will need to include these 2 lines:
+    //if(DbHelper.getsInstance(getApplicationContext()).check_initialSound())
+    //      DbHelper.getsInstance(getApplicationContext()).initialSound();
+    public void initialSound()
+    {
+        db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        ContentValues values = new ContentValues();
+        values.put(COL01, 1);
+        values.put(COL02,1);
+
+        db.insert(TABLE_SETTINGS, null, values);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+    }
+    public boolean check_initialSound()
+    {
+        db = this.getWritableDatabase();
+        String count = "SELECT COUNT(*) FROM" + TABLE_SETTINGS;
+        Cursor cur = db.rawQuery(count, null);
+        cur.moveToFirst();
+        int count2 = cur.getInt(0);
+
+        db.close();
+        cur.close();
+
+        if(count2 == 0)
+            return true;
+        else
+            return false;
+    }
+
+
+    //The goal of get_Music_and_Sound() is to return the status of those two sound settings. A 0 is off, a 1 means on.
+    //I'm returning both at one time because they'd be the same function just written twice if done individually.
+    //index 0 of the returned array is 0 if the music is off and 1 if it's on,
+    //index 1 of the returned array is 0 if the sound effects are off and 1 if they're on.
+
+    //EXAMPLE
+    //int example_array [] = DbHelper.getsInstance(getApplicationContext()).get_Music_and_Sound();
     public int [] get_Music_and_Sound()
     {
-
         db = getReadableDatabase();
         Cursor cur = db.query("Settings", null, null, null, null, null, null, null);
         int array[] = {0,0};
@@ -81,7 +139,7 @@ public class DbHelper extends SQLiteOpenHelper
 //        {
 //            while ( !cur.isAfterLast() )
 //            {
-                array[0] = cur.getInt(0);//*NOT SURE IF COLUMNS START AT 0 OR 1*
+                array[0] = cur.getInt(0);
                 array[1] = cur.getInt(1);
 //                cur.moveToNext();
 //            }
@@ -91,7 +149,118 @@ public class DbHelper extends SQLiteOpenHelper
         return array;
 
     }
+//Though, i still need to write the functions to actually change the values of the sound settings.
+
+    public void change_Music_Power()
+    {
+        db = this.getWritableDatabase();
+        String [] column = {COL01};
+        Cursor cur = db.query(TABLE_SETTINGS, column, null, null, null, null, null, null);
+        int value  = cur.getInt(0);
+
+        ContentValues values = new ContentValues();
+        db.beginTransaction();
+        if (value == 0)
+        {
+            values.put(COL01, 1);
+            db.update(TABLE_SETTINGS, values, null, null);
+        }
+        if (value == 1)
+        {
+            values.put(COL01, 0);
+            db.update(TABLE_SETTINGS, values, null, null);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+    }
+    public void change_SoundEffects_Power()
+    {
+        db = this.getWritableDatabase();
+        String [] column = {COL02};
+        Cursor cur = db.query(TABLE_SETTINGS, column, null, null, null, null, null, null);
+        int value  = cur.getInt(0);//this may or may not have to be a 1.
+
+        ContentValues values = new ContentValues();
+        db.beginTransaction();
+        if (value == 0)
+        {
+            values.put(COL02, 1);
+            db.update(TABLE_SETTINGS, values, null, null);
+        }
+        if (value == 1)
+        {
+            values.put(COL02, 0);
+            db.update(TABLE_SETTINGS, values, null, null);
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+    }
+    //for testing purposes
+    public void databaseDeath(Context context)
+    {
+        context.deleteDatabase(DATABASE_NAME);
+    }
+
+    //{Difficulty, Lesson, AnswerType, Question, Answer, PossibleAnswers, BackgroundColor, is_Dog, is_Icecream, is_Cat}
+    //addQuestion() will take in an array of size 10. The ordering of indeces must match with the above schema.
+    //The goal of this function is to add a question into the database.
+    //This won't be something that ever happens while the user is using the app, the questions must all be hard coded in upon first launch of the app.
+
+    //EXAMPLE
+    //String [] array1= {"Easy", "Addition", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+    //DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
+    public void addQuestion(String array[])
+    {
+        db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        ContentValues values = new ContentValues();
+        values.put("Difficulty", array[0]);
+        values.put("Lesson", array[1]);
+        values.put("AnswerType", array[2]);
+        values.put("Question", array[3]);
+        values.put("Answer", array[4]);
+        values.put("PossibleAnswers", array[5]);
+        values.put("BackgroundColor", array[6]);
+        values.put("is_Dog", array[7]);
+        values.put("is_Icecream", array[8]);
+        values.put("is_Cat", array[9]);
+
+        db.insert(TABLE_QUESTIONS, null, values);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+    }
 
 
+    //This function, which will return an array with all of 1 question's data, may be considered incomplete until a primary key is decided upon.
+    //The returned array will be of size 10, just like the inputted array for addQuestion().
+
+    //EXAMPLE
+    //String something = "whatever_primaryKey";
+    //String [] question1 = DbHelper.getsInstance(getApplicationContext()).grabQuestion(something);
+    public String [] grabQuestion(String some_PrimaryKey)
+    {
+        String [] question = new String[10];
+
+        db = getReadableDatabase();
+        String [] columns = {"Difficulty", "Lesson", "AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
+
+        //this line is where I'd need to know what the primary key is
+        Cursor cur = db.query(TABLE_QUESTIONS, columns, "WhateverPrimaryKey_attribute = " + some_PrimaryKey, null, null, null, null, null);
+        List<String> theRow = new ArrayList<String>();
+        if (cur.moveToFirst())
+        {
+            while ( !cur.isAfterLast() )
+            {
+                theRow.add( cur.getString( cur.getColumnIndex("name")) );
+                cur.moveToNext();
+            }
+        }
+        theRow.toArray(question);
+        cur.close();
+        db.close();
+        return question;
+    }
 
 }
