@@ -149,8 +149,8 @@ public class DbHelper extends SQLiteOpenHelper
         return array;
 
     }
-//Though, i still need to write the functions to actually change the values of the sound settings.
 
+    //DbHelper.getsInstance(getApplicationContext()).change_Music_Power();
     public void change_Music_Power()
     {
         db = this.getWritableDatabase();
@@ -173,6 +173,7 @@ public class DbHelper extends SQLiteOpenHelper
         db.setTransactionSuccessful();
         db.endTransaction();
     }
+    //DbHelper.getsInstance(getApplicationContext()).change_SoundEffects_Power();
     public void change_SoundEffects_Power()
     {
         db = this.getWritableDatabase();
@@ -194,11 +195,6 @@ public class DbHelper extends SQLiteOpenHelper
         }
         db.setTransactionSuccessful();
         db.endTransaction();
-    }
-    //for testing purposes
-    public void databaseDeath(Context context)
-    {
-        context.deleteDatabase(DATABASE_NAME);
     }
 
     //{Difficulty, Lesson, AnswerType, Question, Answer, PossibleAnswers, BackgroundColor, is_Dog, is_Icecream, is_Cat}
