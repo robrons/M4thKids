@@ -69,10 +69,10 @@ public class DbHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) //onCreate is called when the database file does not exist or has not been created yet, and is called at first access.
     {
-        String CREATE_TABLE_Settings = "CREATE TABLE IF NOT EXISTS Settings (\"Music_on INTEGER, SoundEffects_on INTEGER)\";";
+        String CREATE_TABLE_Settings = "CREATE TABLE IF NOT EXISTS Settings (\"Music_on INTEGER, SoundEffects_on INTEGER\");";
         db.execSQL(CREATE_TABLE_Settings);
 
-        String CREATE_TABLE_Questions = "CREATE TABLE IF NOT EXISTS Questions (\"Difficulty TEXT, Lesson TEXT, AnswerType TEXT, Question TEXT, Answer TEXT, PossibleAnswers TEXT, BackgroundColor TEXT, is_Dog TEXT, is_Icecream TEXT, is_Cat TEXT)\";";
+        String CREATE_TABLE_Questions = "CREATE TABLE IF NOT EXISTS Questions (\"ID INTEGER PRIMARY KEY AUTOINCREMENT, Difficulty TEXT, Lesson TEXT, AnswerType TEXT, Question TEXT, Answer TEXT, PossibleAnswers TEXT, BackgroundColor TEXT, is_Dog TEXT, is_Icecream TEXT, is_Cat TEXT\");";
         db.execSQL(CREATE_TABLE_Questions);
     }
 
@@ -233,9 +233,9 @@ public class DbHelper extends SQLiteOpenHelper
     //The returned array will be of size 10, just like the inputted array for addQuestion().
 
     //EXAMPLE
-    //String something = "whatever_primaryKey";
-    //String [] question1 = DbHelper.getsInstance(getApplicationContext()).grabQuestion(something);
-    public String [] grabQuestion(String some_PrimaryKey)
+    //int some_ID = 4;
+    //String [] question1 = DbHelper.getsInstance(getApplicationContext()).grabQuestion(some_ID);
+    public String [] grabQuestion(int question_ID)
     {
         String [] question = new String[10];
 
@@ -243,7 +243,7 @@ public class DbHelper extends SQLiteOpenHelper
         String [] columns = {"Difficulty", "Lesson", "AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
 
         //this line is where I'd need to know what the primary key is
-        Cursor cur = db.query(TABLE_QUESTIONS, columns, "WhateverPrimaryKey_attribute = " + some_PrimaryKey, null, null, null, null, null);
+        Cursor cur = db.query(TABLE_QUESTIONS, columns, "ID = " + question_ID, null, null, null, null, null);
         List<String> theRow = new ArrayList<String>();
         if (cur.moveToFirst())
         {
