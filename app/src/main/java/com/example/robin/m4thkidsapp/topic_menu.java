@@ -36,7 +36,7 @@ public class topic_menu extends AppCompatActivity {
         }
 
     }
-
+//comment
     public void buttonOnClick(View v) {
         Button button1 = (Button) v;
         ((Button) v).setText("This will take you to a game");
