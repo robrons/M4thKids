@@ -42,10 +42,11 @@ public class DbHelper extends SQLiteOpenHelper
     //What the Singleton does is set up a private constructor so the class can't be instantiated anywhere from outside of this own class.
     //So, the class instantiates itself.
     //The design pattern is responsible for guaranteeing 3 things:
-            //Only 1 instance of this class is ever instantiated at any time.
-            //That single instance is synced up everywhere it's accessed from.
-            //That singe instance is available everywhere throughout the package it's located in without having to be passed or even instantiated.
+    //Only 1 instance of this class is ever instantiated at any time.
+    //That single instance is synced up everywhere it's accessed from.
+    //That singe instance is available everywhere throughout the package it's located in without having to be passed or even instantiated.
     private static DbHelper dbInstance;
+
     public static synchronized DbHelper getsInstance(Context context) //don't try to call this function directly yourself
     {
         if (dbInstance == null)
@@ -62,7 +63,6 @@ public class DbHelper extends SQLiteOpenHelper
         super(context, DATABASE_NAME, null, DB_VERSION);
         db = getWritableDatabase();//This calls onCreate()
     }
-
 
 
     //System function, don't worry about this. It will never be called directly by the front end.
@@ -98,17 +98,18 @@ public class DbHelper extends SQLiteOpenHelper
 
         ContentValues values = new ContentValues();
         values.put(COL01, 1);
-        values.put(COL02,1);
+        values.put(COL02, 1);
 
         db.insert(TABLE_SETTINGS, null, values);
         db.setTransactionSuccessful();
         db.endTransaction();
         db.close();
     }
+
     public boolean check_initialSound()
     {
         db = this.getWritableDatabase();
-        String count = "SELECT COUNT(*) FROM" + TABLE_SETTINGS;
+        String count = "SELECT COUNT(*) FROM " + TABLE_SETTINGS;
         Cursor cur = db.rawQuery(count, null);
         cur.moveToFirst();
         int count2 = cur.getInt(0);
@@ -116,7 +117,7 @@ public class DbHelper extends SQLiteOpenHelper
         db.close();
         cur.close();
 
-        if(count2 == 0)
+        if (count2 == 0)
             return true;
         else
             return false;
@@ -130,17 +131,17 @@ public class DbHelper extends SQLiteOpenHelper
 
     //EXAMPLE
     //int example_array [] = DbHelper.getsInstance(getApplicationContext()).get_Music_and_Sound();
-    public int [] get_Music_and_Sound()
+    public int[] get_Music_and_Sound()
     {
         db = getReadableDatabase();
         Cursor cur = db.query("Settings", null, null, null, null, null, null, null);
-        int array[] = {0,0};
-//        if (cur.moveToFirst())
+        int array[] = {0, 0};
+        if (cur.moveToFirst())
 //        {
 //            while ( !cur.isAfterLast() )
 //            {
-                array[0] = cur.getInt(0);
-                array[1] = cur.getInt(1);
+            array[0] = cur.getInt(0);
+        array[1] = cur.getInt(1);
 //                cur.moveToNext();
 //            }
 //        }
@@ -150,13 +151,18 @@ public class DbHelper extends SQLiteOpenHelper
 
     }
 
+    //This function, when called, will change the current music power from 1 to 0 or from 0 to 1.
     //DbHelper.getsInstance(getApplicationContext()).change_Music_Power();
     public void change_Music_Power()
     {
         db = this.getWritableDatabase();
-        String [] column = {COL01};
+        String[] column = {COL01};
         Cursor cur = db.query(TABLE_SETTINGS, column, null, null, null, null, null, null);
-        int value  = cur.getInt(0);
+        int value = -1;
+        if (cur.moveToFirst())
+        {
+            value = cur.getInt(0);
+        }
 
         ContentValues values = new ContentValues();
         db.beginTransaction();
@@ -173,13 +179,19 @@ public class DbHelper extends SQLiteOpenHelper
         db.setTransactionSuccessful();
         db.endTransaction();
     }
+
+    //Same thing here, but with sound effects.
     //DbHelper.getsInstance(getApplicationContext()).change_SoundEffects_Power();
     public void change_SoundEffects_Power()
     {
         db = this.getWritableDatabase();
-        String [] column = {COL02};
+        String[] column = {COL02};
         Cursor cur = db.query(TABLE_SETTINGS, column, null, null, null, null, null, null);
-        int value  = cur.getInt(0);//this may or may not have to be a 1.
+        int value = -1;
+        if (cur.moveToFirst())
+        {
+            value = cur.getInt(0);//this may or may not have to be a 1.
+        }
 
         ContentValues values = new ContentValues();
         db.beginTransaction();
@@ -228,35 +240,6 @@ public class DbHelper extends SQLiteOpenHelper
         db.close();
     }
 
-
-    //This function, which will return an array with all of 1 question's data, may be considered incomplete until a primary key is decided upon.
-    //The returned array will be of size 10, just like the inputted array for addQuestion().
-
-    //EXAMPLE
-    //int some_ID = 4;
-    //String [] question1 = DbHelper.getsInstance(getApplicationContext()).grabQuestion(some_ID);
-    public String [] grabQuestion(int question_ID)
-    {
-        String [] question = new String[10];
-
-        db = getReadableDatabase();
-        String [] columns = {"Difficulty", "Lesson", "AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
-
-        //this line is where I'd need to know what the primary key is
-        Cursor cur = db.query(TABLE_QUESTIONS, columns, "ID = " + question_ID, null, null, null, null, null);
-        List<String> theRow = new ArrayList<String>();
-        if (cur.moveToFirst())
-        {
-            while ( !cur.isAfterLast() )
-            {
-                theRow.add( cur.getString( cur.getColumnIndex("name")) );
-                cur.moveToNext();
-            }
-        }
-        theRow.toArray(question);
-        cur.close();
-        db.close();
-        return question;
-    }
+    
 
 }
