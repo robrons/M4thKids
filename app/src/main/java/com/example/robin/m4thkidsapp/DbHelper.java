@@ -23,16 +23,16 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COL02 = "SoundEffects_on";
 
     public static final String TABLE_QUESTIONS = "Questions";
-//    public static final String COL11 = "Difficulty";
-//    public static final String COL12 = "Lesson";
-//    public static final String COL13  = "AnswerType";
-//    public static final String COL14 = "Question";
-//    public static final String COL15 = "Answer";
-//    public static final String COL16 = "is_Cat";
-//    public static final String COL17 = "is_Icecream";
-//    public static final String COL18 = "is_Dog";
-//    public static final String COL19 = "BackgroundColor";
-//    public static final String COL20 = "PossibleAnswers";
+    public static final String COL11 = "Difficulty";
+    public static final String COL12 = "Lesson";
+    public static final String COL13  = "AnswerType";
+    public static final String COL14 = "Question";
+    public static final String COL15 = "Answer";
+    public static final String COL16 = "is_Cat";
+    public static final String COL17 = "is_Icecream";
+    public static final String COL18 = "is_Dog";
+    public static final String COL19 = "BackgroundColor";
+    public static final String COL20 = "PossibleAnswers";
 
 
     SQLiteDatabase db;
@@ -240,6 +240,118 @@ public class DbHelper extends SQLiteOpenHelper
         db.close();
     }
 
-    
+
+    //The returned array will be of size 10, just like the inputted array for addQuestion().
+    //EXAMPLE
+    //int some_ID = 4;
+    //String [] question1 = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withID(some_ID);
+    public String [] grabQuestion_withID(int question_ID)
+    {
+        String [] question = new String[10];
+
+        db = getReadableDatabase();
+        String [] columns = {"Difficulty", "Lesson", "AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
+
+        Cursor cur = db.query(TABLE_QUESTIONS, columns, "ID = " + question_ID, null, null, null, null, null);
+        List<String> theRow = new ArrayList<String>();
+        int x = 0;
+        if (cur.moveToFirst())
+        {
+            String temp;
+
+            do {
+                for (int i = 0; i < columns.length; i++) {
+                    temp = cur.getString(i);
+                    theRow.add(temp);
+                }
+            } while (cur.moveToNext());
+
+        }
+
+        question = theRow.toArray(new String[0]);
+
+        cur.close();
+        db.close();
+        return question;
+    }
+
+    //Given a difficulty as a string, this function returns a List object that's populated with other list objects of strings.
+    //The strings in each list are 1 per attribute: "Lesson", "AnswerType", "Question", "Answer", "PossibleAnswers",
+    //          "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"
+    //Each list in the top list is a single question's data.
+    //EXAMPLE
+    //String some_difficulty = "Easy";
+    //List<List<String>> questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withDifficulty(some_difficulty);
+    public List<List<String>> grabQuestion_withDifficulty(String difficulty)
+    {
+        List<List<String>> questions = new ArrayList<>();
+
+        db = getReadableDatabase();
+        String [] columns = {"Lesson", "AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
+
+        Cursor cur = db.query(TABLE_QUESTIONS, columns, COL11 + " = \"" + difficulty+ "\"", null, null, null, null, null);
+        List<String> theRow = new ArrayList<String>();
+        int x = 0;
+
+            if (cur.moveToFirst())
+            {
+                String temp;
+
+                do
+                {
+                    for (int i = 0; i < columns.length; i++)
+                    {
+                        temp = cur.getString(i);
+                        theRow.add(temp);
+                    }
+                    questions.add(theRow);
+                } while (cur.moveToNext());
+
+            }
+
+        cur.close();
+        db.close();
+        return questions;
+    }
+
+
+    //Given a lesson as a string, this function returns a List object that's populated with other list objects of strings.
+    //The strings in each list are 1 per attribute: "AnswerType", "Question", "Answer", "PossibleAnswers",
+    //          "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"
+    //Each list in the top list is a single question's data.
+    //EXAMPLE
+    //String some_difficulty = "Easy";
+    //List<List<String>> questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withDifficulty(some_difficulty);
+    public List<List<String>> grabQuestion_withLesson(String lesson)
+    {
+        List<List<String>> questions = new ArrayList<>();
+
+        db = getReadableDatabase();
+        String [] columns = {"AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
+
+        Cursor cur = db.query(TABLE_QUESTIONS, columns, COL12 + " = \"" + lesson+ "\"", null, null, null, null, null);
+        List<String> theRow = new ArrayList<String>();
+        int x = 0;
+
+        if (cur.moveToFirst())
+        {
+            String temp;
+
+            do
+            {
+                for (int i = 0; i < columns.length; i++)
+                {
+                    temp = cur.getString(i);
+                    theRow.add(temp);
+                }
+                questions.add(theRow);
+            } while (cur.moveToNext());
+
+        }
+
+        cur.close();
+        db.close();
+        return questions;
+    }
 
 }
