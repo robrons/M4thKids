@@ -19,9 +19,16 @@ public class topic_menu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String [] array1= {"Medium", "adding", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+
+        for(int i = 0; i < 10; i ++)
+        {
+            DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
+        }
         setContentView(R.layout.activity_topic_menu);
         Button button = (Button)findViewById(R.id.button);
         Button button2 = (Button)findViewById(R.id.button2);
+
         if(level == 0) {
             button.setText(R.string.comparing);
             button2.setText(R.string.counting);
@@ -38,7 +45,10 @@ public class topic_menu extends AppCompatActivity {
     }
 //comment
     public void buttonOnClick(View v) {
+        Questions q = new Questions();
         Button button1 = (Button) v;
-        ((Button) v).setText("This will take you to a game");
+        q.topic = ((Button) v).getText().toString();
+        Intent intent = new Intent(this, Questions.class);
+        startActivity(intent);
     }
 }
