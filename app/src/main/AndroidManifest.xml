@@ -27,6 +27,10 @@
         <activity
             android:name=".LevelMenu"
             android:label="@string/title_activity_level_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Questions"
+            android:label="@string/title_activity_questions"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

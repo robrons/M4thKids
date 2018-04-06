@@ -14,4 +14,5 @@
     <string name="medium">MEDIUM</string>
     <string name="hard">HARD</string>
     <string name="title_activity_level_menu">LevelMenu</string>
+    <string name="title_activity_questions">Questions</string>
 </resources>
