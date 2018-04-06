@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.robin.m4thkidsapp.LevelMenu">
+    <!-- The primary full-screen view. This can be replaced with whatever view
+            is needed to present your content, e.g. VideoView, SurfaceView,
+            TextureView, etc. -->
+
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+
+    <LinearLayout
+        android:id="@+id/fullscreen_content_controls"
+        style="?metaButtonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/black_overlay"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonEasy"
+        android:layout_width="match_parent"
+        android:layout_height="167dp"
+        android:background="@android:color/holo_green_dark"
+
+        android:gravity="top"
+        android:onClick="buttonOnClickEasy"
+        android:text="@string/easy"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/buttonMedium"
+        android:layout_width="match_parent"
+        android:layout_height="167dp"
+        android:layout_gravity="center"
+        android:background="@android:color/holo_orange_light"
+        android:onClick="buttonOnClickMedium"
+        android:text="@string/medium"
+        android:textSize="30sp"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/buttonHard"
+        android:layout_width="match_parent"
+        android:layout_height="167dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/holo_red_dark"
+        android:onClick="buttonOnClickHard"
+        android:text="@string/hard"
+        android:textSize="30sp" />
+
+
+</FrameLayout>
