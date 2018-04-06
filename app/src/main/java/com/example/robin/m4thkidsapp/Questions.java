@@ -40,10 +40,11 @@ public class Questions extends AppCompatActivity {
             List<String> question = questionSet.get(qID.get(i));
 
             //Check Question Type
-            String a = question.get(0);
+
             if(question.get(0).equals("multiple choice"))
             {
-                List answers = generateQuestion(question.get(1), "multiple choice");
+                List completeQuestion = generateQuestion(question.get(1), "multiple choice");
+                List answers = generateQuestion(completeQuestion, "multiple choice");
                 setContentView(R.layout.activity_questions);
                 RadioButton Rbutton = (RadioButton)findViewById(R.id.answer_a);
                 Rbutton.setText(R.string.counting);
@@ -64,7 +65,22 @@ public class Questions extends AppCompatActivity {
 
         }
     }
-        List generateQuestion(String question, String questionType)
+
+    List generateQuestion(List numbers, String questionType)
+    {
+        List returnList = new ArrayList();
+        if(questionType.equals("Multiple Choice"))
+        {
+         if (topic.equals("adding"))
+         {
+             returnList.add("5");
+         }
+        }
+        return returnList;
+    }
+
+
+    List generateQuestion(String question, String questionType)
         {
             int numOfNumbers = countOccurences(question, "*BLANK*");
             List n = new ArrayList();
@@ -83,6 +99,7 @@ public class Questions extends AppCompatActivity {
             {
                 returnList.add(n.get(i));
             }
+            return returnList;
         }
 
         //used from https://www.geeksforgeeks.org/count-occurrences-of-a-word-in-string/
