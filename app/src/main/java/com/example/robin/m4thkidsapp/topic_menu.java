@@ -20,11 +20,11 @@ public class topic_menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String [] array1= {"Medium", "adding", "multiple choice", "Sally has *BLANK* apples. She gets another *BLANK* from Bill, and *BLANK* from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
-
-        for(int i = 0; i < 10; i ++)
+// getApplicationContext().deleteDatabase("math4kids.db");
+        /*for(int i = 0; i < 10; i ++)
         {
             DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
-        }
+        }*/
         setContentView(R.layout.activity_topic_menu);
         Button button = (Button)findViewById(R.id.button);
         Button button2 = (Button)findViewById(R.id.button2);
@@ -48,6 +48,10 @@ public class topic_menu extends AppCompatActivity {
         Questions q = new Questions();
         Button button1 = (Button) v;
         q.topic = ((Button) v).getText().toString();
+        if(q.topic == "Review" || q.topic == "Logic")
+        {
+            q.topic += level;
+        }
         Intent intent = new Intent(this, Questions.class);
         startActivity(intent);
     }
