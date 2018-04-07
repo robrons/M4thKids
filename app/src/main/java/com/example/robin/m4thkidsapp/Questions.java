@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,9 +55,19 @@ public class Questions extends AppCompatActivity {
                 //This acutally makes the display page
                 setContentView(R.layout.activity_questions);
 
+                //This Displays the question
+                TextView QuestionBox = (TextView) findViewById(R.id.QuestionBox);
+                QuestionBox.setText(completeQuestion.get(0).toString());
+
                 //gets the first radio button and sents it to the value of the answer
-                RadioButton Rbutton = (RadioButton)findViewById(R.id.answer_a);
-                Rbutton.setText(answers.get(0).toString());
+                List<RadioButton> RadioButtonList= new ArrayList<RadioButton>();
+                RadioButtonList.add((RadioButton)findViewById(R.id.answer_a));
+                RadioButtonList.add((RadioButton)findViewById(R.id.answer_b));
+                RadioButtonList.add((RadioButton)findViewById(R.id.answer_c));
+                RadioButtonList.add((RadioButton)findViewById(R.id.answer_d));
+
+                for(int j = 0; j < RadioButtonList.size(); j++)
+                    RadioButtonList.get(j).setText(answers.get(j).toString());
 
             }
           if(question.get(0).equals("graphic"))
@@ -82,19 +94,51 @@ public class Questions extends AppCompatActivity {
     List generateAnswers(List numbers, String questionType)
     {
         //this will the list it returns
-        List returnList = new ArrayList();
+        List<Integer> answers = new ArrayList();
+        int answer = 0;
 
         //checks question type
-        if(questionType.equals("Multiple Choice"))
+        if(questionType.equals("multiple choice"))
         {
          //checks topic so that it knows which operation it needs to preform to find the answer
          if (topic.equals("adding"))
          {
-             //filler code
-             returnList.add("5");
+             //calculates answer by adding all the numbers that were generated
+             for(int i = 1; i < numbers.size(); i++)
+             {
+                 answer += Integer.parseInt(numbers.get(i).toString());
+             }
+
+             //adds answer to the list of possible answers
+             answers.add(answer);
+
+             //max bound for possible answer
+             int max = answer + 10;
+             //min bound for possible answer
+             int min = answer - 10;
+
+             if (min < 0)
+                    min = 0;
+
+             //Loops for number of possible answers it will display (Right now thats 4)
+             for(int i = 0; i < 4; i++)
+             {
+
+                 Random rand = new Random();
+
+                 //add a random possible answer to the list
+                 answers.add(rand.nextInt(max + 1 - min ) + min );
+
+             }
+
+             //shuffles the array of possible answers so they will be displayed in a random order
+            Collections.shuffle(answers);
+
+             //adds answer again to the end so the calling function can know what the answer is
+             answers.add(answer);
          }
         }
-        return returnList;
+        return answers;
     }
 
     //fills the "*BLANK*"s in the question in with numbers
