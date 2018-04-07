@@ -28,12 +28,20 @@ public class SplashActivity extends AppCompatActivity {
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
 
+              for(int i = 0; i <= 19; i++) {
+                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
+              }
+
               String [] array2= {"Easy", "counting", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
+
+              for(int i = 0; i <= 19; i++) {
+                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
+              }
 
               String [] array3= {"Easy", "adding", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
@@ -42,12 +50,21 @@ public class SplashActivity extends AppCompatActivity {
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
 
+              for(int i = 0; i <= 19; i++) {
+                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
+              }
+
               String [] array4= {"Easy", "subing", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
+
+              for(int i = 0; i <= 19; i++) {
+                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
+              }
+
 
               String [] array5= {"Easy", "times", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
@@ -56,12 +73,22 @@ public class SplashActivity extends AppCompatActivity {
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
 
+              for(int i = 0; i <= 19; i++) {
+                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
+              }
+
+
               String [] array6= {"Easy", "divide", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
+
+              for(int i = 0; i <= 19; i++) {
+                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
+              }
+
 
 
           }
