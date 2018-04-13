@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer mySong;
     boolean music = false;
     @Override
+
+    // On Instantiation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         mySong.isLooping();
         mySong.start();
     }
+
+    //Pop Up Menu
     public void ShowPopup(View v) {
         TextView txtclose;
         TextView txtmusic;
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //Music Button
         txtmusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
