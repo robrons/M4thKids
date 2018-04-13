@@ -24,7 +24,19 @@ public class MainActivity extends AppCompatActivity {
         mySong.isLooping();
         mySong.start();
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        mySong.pause();
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(!music){
+            mySong.start();
+        }
+    }
     //Pop Up Menu
     public void ShowPopup(View v) {
         TextView txtclose;

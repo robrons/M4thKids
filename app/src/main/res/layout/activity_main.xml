@@ -5,6 +5,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:launchMode="singleTop"
     android:background="@color/white"
     tools:context="com.example.robin.m4thkidsapp.MainActivity">
 
