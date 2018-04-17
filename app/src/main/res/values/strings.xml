@@ -15,4 +15,5 @@
     <string name="hard">HARD</string>
     <string name="title_activity_level_menu">LevelMenu</string>
     <string name="title_activity_questions">Questions</string>
+    <string name="textview">TextView</string>
 </resources>

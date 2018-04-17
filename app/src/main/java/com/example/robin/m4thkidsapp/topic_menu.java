@@ -1,23 +1,10 @@
 package com.example.robin.m4thkidsapp;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.MediaPlayer;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
-
-import java.util.Random;
 
 public class topic_menu extends AppCompatActivity {
     public static int level;
@@ -32,8 +19,8 @@ public class topic_menu extends AppCompatActivity {
         }*/
 
         setContentView(R.layout.activity_topic_menu);
-        Button button = (Button) findViewById(R.id.button);
-        Button button2 = (Button) findViewById(R.id.button2);
+        Button button = findViewById(R.id.button);
+        Button button2 = findViewById(R.id.button2);
 
         if (level == 0) {
             button.setText(R.string.comparing);
@@ -54,12 +41,10 @@ public class topic_menu extends AppCompatActivity {
 
 //comment
     public void buttonOnClick(View v) {
-        Questions q = new Questions();
-        Button button1 = (Button) v;
-        q.topic = ((Button) v).getText().toString();
-        if(q.topic == "Review" || q.topic == "Logic")
+        Questions.topic = ((Button) v).getText().toString();
+        if(Questions.topic.equals("Review") || Questions.topic.equals("Logic"))
         {
-            q.topic += level;
+            Questions.topic += level;
         }
         Intent intent = new Intent(this, Questions.class);
         startActivity(intent);

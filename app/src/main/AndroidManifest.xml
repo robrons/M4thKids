@@ -4,8 +4,7 @@
 
     <application
         android:name=".App"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/m4thkids_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
@@ -31,7 +30,7 @@
         <activity
             android:name=".Questions"
             android:label="@string/title_activity_questions"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

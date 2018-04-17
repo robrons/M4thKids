@@ -1,13 +1,7 @@
 package com.example.robin.m4thkidsapp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -19,7 +13,6 @@ import java.util.regex.Pattern;
 
 public class Questions extends AppCompatActivity {
 
-    public static int level;
     public static String topic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +79,7 @@ public class Questions extends AppCompatActivity {
         }
     }
 
-    //this funcation takes in a list that has the complete question as the first element and then
+    //this function takes in a list that has the complete question as the first element and then
     //the number that were generated to fill the blanks in with. It only cares about those numbers
     //no the question so it needs to start at 1 when getting info from numbers list
     //it takes in the question type so it knows if it needs to make possible answers (for multiple
@@ -145,7 +138,7 @@ public class Questions extends AppCompatActivity {
     List generateQuestion(String question, String questionType)
         {
             //finds how many *BLANK*s so it knows how many numbers to generate
-            int numOfNumbers = countOccurences(question, "*BLANK*");
+            int numOfNumbers = countOccurrences(question, "*BLANK*");
 
             //makes a list and populates it with that many random numbers for 0-10
             List n = new ArrayList();
@@ -183,7 +176,7 @@ public class Questions extends AppCompatActivity {
         }
 
     //copied from https://www.geeksforgeeks.org/count-occurrences-of-a-word-in-string/
-    static int countOccurences(String str, String word)
+    static int countOccurrences(String str, String word)
     {
         // split the string by spaces in a
         String a[] = str.split(" ");
