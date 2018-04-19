@@ -1,9 +1,15 @@
 package com.example.robin.m4thkidsapp;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,54 +19,75 @@ import java.util.regex.Pattern;
 
 public class Questions extends AppCompatActivity {
 
+    private String finalAnswer;
     public static String topic;
+    private List answers;
+    private List completeQuestion;
+    List<List<String>> questionSet = null;
+    List<Integer> qID;
+    int questionsCompleted = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //get "subtable"
-        List<List<String>> questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withLesson(topic);
 
-        //make list with question Ids
-        List<Integer> qID = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            qID.add(i);
-        }
+       //get "subtable"
+       questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withLesson(topic);
 
-        //shuffle list so questions are in a different order each times
-        Collections.shuffle(qID);
+       //make list with question Ids
+       qID = new ArrayList<>();
+       for (int i = 0; i < 10; i++) {
+           qID.add(i);
+       }
 
-        //for loop to loop through the number of questions in a lesson (its 5 questions right now)
-        for(int i = 0; i < 5; i++) {
+       //shuffle list so questions are in a different order each times
+       Collections.shuffle(qID);
+       createQuestionInfo(questionSet.get(0));
+   }
 
-            //pulls the random question from the subtable
-            List<String> question = questionSet.get(qID.get(i));
+   public void goThroughQuestions(View view)
+   {
+       //for loop to loop through the number of questions in a lesson (its 5 questions right now)
+       while(questionsCompleted < 5) {
 
+           //pulls the random question from the subtable
+           List<String> question = questionSet.get(qID.get(questionsCompleted));
+           createQuestionInfo(question);
+       }
+   }
+
+   void displayMulitpleChoice()
+   {
+       //This acutally makes the display page
+       setContentView(R.layout.activity_questions);
+
+       //This Displays the question
+       TextView QuestionBox = (TextView) findViewById(R.id.QuestionBox);
+       QuestionBox.setText(completeQuestion.get(0).toString());
+
+       //gets the first radio button and sents it to the value of the answer
+       List<RadioButton> RadioButtonList= new ArrayList<RadioButton>();
+       RadioButtonList.add((RadioButton)findViewById(R.id.answer_a));
+       RadioButtonList.add((RadioButton)findViewById(R.id.answer_b));
+       RadioButtonList.add((RadioButton)findViewById(R.id.answer_c));
+       RadioButtonList.add((RadioButton)findViewById(R.id.answer_d));
+
+       for(int j = 0; j < RadioButtonList.size(); j++)
+           RadioButtonList.get(j).setText(answers.get(j).toString());
+   }
+
+  void createQuestionInfo(List<String> question)
+   {
             //Check Question Type
             if(question.get(0).equals("multiple choice"))
             {
                 //generates the completed question without the *BLANK* (basically it comes up with the numbers
-                List completeQuestion = generateQuestion(question.get(1), "multiple choice");
+                completeQuestion = generateQuestion(question.get(1), "multiple choice");
 
                 //This takes the random numbers and generates the answer (and potentially possible answers) for the question
-                List answers = generateAnswers(completeQuestion, "multiple choice");
+                answers = generateAnswers(completeQuestion, "multiple choice");
+                displayMulitpleChoice();
 
-                //This acutally makes the display page
-                setContentView(R.layout.activity_questions);
-
-                //This Displays the question
-                TextView QuestionBox = (TextView) findViewById(R.id.QuestionBox);
-                QuestionBox.setText(completeQuestion.get(0).toString());
-
-                //gets the first radio button and sents it to the value of the answer
-                List<RadioButton> RadioButtonList= new ArrayList<RadioButton>();
-                RadioButtonList.add((RadioButton)findViewById(R.id.answer_a));
-                RadioButtonList.add((RadioButton)findViewById(R.id.answer_b));
-                RadioButtonList.add((RadioButton)findViewById(R.id.answer_c));
-                RadioButtonList.add((RadioButton)findViewById(R.id.answer_d));
-
-                for(int j = 0; j < RadioButtonList.size(); j++)
-                    RadioButtonList.get(j).setText(answers.get(j).toString());
 
             }
           if(question.get(0).equals("graphic"))
@@ -77,7 +104,6 @@ public class Questions extends AppCompatActivity {
             }
 
         }
-    }
 
     //this function takes in a list that has the complete question as the first element and then
     //the number that were generated to fill the blanks in with. It only cares about those numbers
@@ -101,7 +127,7 @@ public class Questions extends AppCompatActivity {
              {
                  answer += Integer.parseInt(numbers.get(i).toString());
              }
-
+             finalAnswer = Integer.toString(answer);
              //adds answer to the list of possible answers
              answers.add(answer);
 
@@ -113,14 +139,21 @@ public class Questions extends AppCompatActivity {
              if (min < 0)
                     min = 0;
 
+
              //Loops for number of possible answers it will display (Right now thats 4)
-             for(int i = 0; i < 4; i++)
+             int count = 0;
+             while(count != 3)
              {
 
                  Random rand = new Random();
+                 int randNum = rand.nextInt(max + 1 - min) + min;
 
-                 //add a random possible answer to the list
-                 answers.add(rand.nextInt(max + 1 - min ) + min );
+                 if(!answers.contains(randNum)) {
+                     //add a random possible answer to the list
+                     answers.add(randNum);
+                     count = count + 1;
+                 }
+
 
              }
 
@@ -193,13 +226,60 @@ public class Questions extends AppCompatActivity {
         return count;
     }
 
-        /*fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+    public void gradeOnClick(View view) {
+        RadioGroup rg = (RadioGroup) findViewById(R.id.RGroup);
+        // Is the button now checked?
+        int selectedRadioButtonID = rg.getCheckedRadioButtonId();
+        RadioButton selectedRadioButton = (RadioButton) findViewById(selectedRadioButtonID);
+        String selectedAnswer = selectedRadioButton.getText().toString();
+        grade(selectedAnswer);
+
+        // Check which radio button was clicked
+       /* switch(view.getId()) {
+            case R.id.answer_a:
+                if (checked)
+                {
+                    RadioButton answerButton = (RadioButton)findViewById(R.id.answer_a);
+                    String answer = answerButton.getText().toString();
+                    grade(answer);
+                }
+                    break;
+            case R.id.answer_b:
+                if (checked)
+                {
+                    RadioButton answerButton = (RadioButton)findViewById(R.id.answer_b);
+                    String answer = answerButton.getText().toString();
+                    grade(answer);
+                }
+                     break;
+            case R.id.answer_c:
+                if (checked)
+                {
+                    RadioButton answerButton = (RadioButton)findViewById(R.id.answer_c);
+                    String answer = answerButton.getText().toString();
+                    grade(answer);
+                }
+                    break;
+            case R.id.answer_d:
+                if (checked)
+                {
+                    RadioButton answerButton = (RadioButton)findViewById(R.id.answer_d);
+                    String answer = answerButton.getText().toString();
+                    grade(answer);
+                }
+                    break;
         }*/
+    }
+
+    void grade(String choice)
+    {
+        if(choice.equals(finalAnswer)) {
+            questionsCompleted = questionsCompleted + 1;
+            setContentView(R.layout.filler_file);
+        }
+        else
+            displayMulitpleChoice();
+    }
 
 
 
