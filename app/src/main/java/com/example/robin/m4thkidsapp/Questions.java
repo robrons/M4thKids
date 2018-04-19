@@ -1,11 +1,16 @@
 package com.example.robin.m4thkidsapp;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,18 +24,22 @@ import java.util.regex.Pattern;
 
 public class Questions extends AppCompatActivity {
 
-    private String finalAnswer;
     public static String topic;
+    public static int level;
+    private String finalAnswer;
     private List answers;
     private List completeQuestion;
+    private ConstraintLayout mainview;
+    Dialog myDialog;
     List<List<String>> questionSet = null;
     List<Integer> qID;
     int questionsCompleted = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        setContentView(R.layout.activity_questions);
+        myDialog = new Dialog(this);
+        mainview = (ConstraintLayout) this.findViewById(R.id.questions);
        //get "subtable"
        questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withLesson(topic);
 
@@ -42,24 +51,28 @@ public class Questions extends AppCompatActivity {
 
        //shuffle list so questions are in a different order each times
        Collections.shuffle(qID);
-       createQuestionInfo(questionSet.get(0));
+       createQuestionInfo(questionSet.get(qID.get(0)));
    }
 
-   public void goThroughQuestions(View view)
+   public void goThroughQuestions(View v)
    {
        //for loop to loop through the number of questions in a lesson (its 5 questions right now)
-       while(questionsCompleted < 5) {
+       if(questionsCompleted < 5) {
 
            //pulls the random question from the subtable
            List<String> question = questionSet.get(qID.get(questionsCompleted));
            createQuestionInfo(question);
        }
+       else
+           setContentView(R.layout.end_lesson);
    }
 
    void displayMulitpleChoice()
    {
+
        //This acutally makes the display page
-       setContentView(R.layout.activity_questions);
+       setContentView(mainview);
+
 
        //This Displays the question
        TextView QuestionBox = (TextView) findViewById(R.id.QuestionBox);
@@ -73,7 +86,12 @@ public class Questions extends AppCompatActivity {
        RadioButtonList.add((RadioButton)findViewById(R.id.answer_d));
 
        for(int j = 0; j < RadioButtonList.size(); j++)
+       {
+           RadioButtonList.get(j).setChecked(false);
            RadioButtonList.get(j).setText(answers.get(j).toString());
+
+       }
+
    }
 
   void createQuestionInfo(List<String> question)
@@ -232,55 +250,46 @@ public class Questions extends AppCompatActivity {
         int selectedRadioButtonID = rg.getCheckedRadioButtonId();
         RadioButton selectedRadioButton = (RadioButton) findViewById(selectedRadioButtonID);
         String selectedAnswer = selectedRadioButton.getText().toString();
-        grade(selectedAnswer);
+        grade(selectedAnswer, view);
 
-        // Check which radio button was clicked
-       /* switch(view.getId()) {
-            case R.id.answer_a:
-                if (checked)
-                {
-                    RadioButton answerButton = (RadioButton)findViewById(R.id.answer_a);
-                    String answer = answerButton.getText().toString();
-                    grade(answer);
-                }
-                    break;
-            case R.id.answer_b:
-                if (checked)
-                {
-                    RadioButton answerButton = (RadioButton)findViewById(R.id.answer_b);
-                    String answer = answerButton.getText().toString();
-                    grade(answer);
-                }
-                     break;
-            case R.id.answer_c:
-                if (checked)
-                {
-                    RadioButton answerButton = (RadioButton)findViewById(R.id.answer_c);
-                    String answer = answerButton.getText().toString();
-                    grade(answer);
-                }
-                    break;
-            case R.id.answer_d:
-                if (checked)
-                {
-                    RadioButton answerButton = (RadioButton)findViewById(R.id.answer_d);
-                    String answer = answerButton.getText().toString();
-                    grade(answer);
-                }
-                    break;
-        }*/
+
     }
 
-    void grade(String choice)
+    void grade(String choice, View v)
     {
         if(choice.equals(finalAnswer)) {
             questionsCompleted = questionsCompleted + 1;
-            setContentView(R.layout.filler_file);
+            setContentView(R.layout.correct_answer);
         }
         else
-            displayMulitpleChoice();
+            ShowWrongAnswerPopup(v);
+    }
+
+    public void endOfLesson (View v)
+    {
+        topic_menu t = new topic_menu();
+        topic_menu.level = level;
+        Intent intent = new Intent(this, topic_menu.class);
+        startActivity(intent);
     }
 
 
+    //Pop Up Menu
+    public void ShowWrongAnswerPopup(View v) {
+        TextView txtclose;
+        TextView txtmusic;
+        myDialog.setContentView(R.layout.wrong_answer_popup);
+        txtclose = myDialog.findViewById(R.id.tryagain);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+    }
 
 }
