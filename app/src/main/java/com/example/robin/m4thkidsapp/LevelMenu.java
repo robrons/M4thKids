@@ -26,7 +26,7 @@ public class LevelMenu extends AppCompatActivity {
             mySong.start();
             music = false;
         }
-        else{
+        else {
             music = true;
         }
 
