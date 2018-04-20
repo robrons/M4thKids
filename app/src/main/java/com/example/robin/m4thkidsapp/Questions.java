@@ -1,7 +1,11 @@
 package com.example.robin.m4thkidsapp;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -12,11 +16,13 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 public class Questions extends AppCompatActivity {
+    Dialog myDialog;
 
     public static String topic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDialog = new Dialog(this);
 
         //get "subtable"
         List<List<String>> questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withLesson(topic);
@@ -201,6 +207,19 @@ public class Questions extends AppCompatActivity {
             }
         }*/
 
+    public void ShowTip(View v) {
+        TextView txtclose;
+        myDialog.setContentView(R.layout.customtip);
+        txtclose = myDialog.findViewById(R.id.back);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
 
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+    }
 
 }

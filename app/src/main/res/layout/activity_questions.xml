@@ -1,62 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/lightpurple"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RadioButton
-        android:id="@+id/answer_a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:text="RadioButton"
-        android:textColor="@color/purple"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/answer_b"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioButton
-        android:id="@+id/answer_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:text="Radiobutton"
-        android:textColor="@color/purple"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/answer_c"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioButton
-        android:id="@+id/answer_d"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="248dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:text="Radiobutton"
-        android:textSize="20sp"
-        android:textColor="@color/purple"
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="254dp"
+        android:layout_height="188dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
 
-    <RadioButton
-        android:id="@+id/answer_c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginStart="36dp"
-        android:text="Radiobutton"
-        android:textSize="20sp"
-        android:textColor="@color/purple"
-        app:layout_constraintBottom_toTopOf="@+id/answer_d"
-        app:layout_constraintStart_toStartOf="parent" />
+        <RadioButton
+            android:id="@+id/answer_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            android:text="RadioButton"
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/answer_b"
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <RadioButton
+            android:id="@+id/answer_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            android:text="Radiobutton"
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/answer_c"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RadioButton
+            android:id="@+id/answer_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            android:text="Radiobutton"
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RadioButton
+            android:id="@+id/answer_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            android:text="Radiobutton"
+            android:textColor="@color/purple"
+            android:textSize="20sp" />
+    </RadioGroup>
     <TextView
         android:id="@+id/QuestionBox"
         android:layout_width="350dp"
@@ -72,5 +88,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/QuestionOptions"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="550dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="256dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/darkpurple"
+        android:baselineAligned="false"
+        android:text="Options"
+        android:textColor="@color/lightpurple"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.898"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.21" />
+
+    <Button
+        android:id="@+id/QuestionTips"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="256dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/darkpurple"
+        android:baselineAligned="false"
+        android:onClick="ShowTip"
+        android:text="Tips"
+        android:textColor="@color/lightpurple"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
