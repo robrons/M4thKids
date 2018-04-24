@@ -2,6 +2,7 @@ package com.example.robin.m4thkidsapp;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LevelMenu extends AppCompatActivity {
     Dialog myDialog;
@@ -85,7 +87,13 @@ public class LevelMenu extends AppCompatActivity {
                 myDialog.dismiss();
             }
         });
-
+        TextView deleteDB =  myDialog.findViewById((R.id.deletedb));
+        deleteDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteDatabase(v);
+            }
+        });
         //Music Button
         txtmusic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +114,16 @@ public class LevelMenu extends AppCompatActivity {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
+    }
+
+    public void deleteDatabase(View v){
+        DbHelper.getsInstance(getApplicationContext()).death(this);
+        Context context = getApplicationContext();
+        CharSequence text = "Database Deleted";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }
 

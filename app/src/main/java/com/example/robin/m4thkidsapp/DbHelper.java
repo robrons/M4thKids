@@ -16,15 +16,16 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper
 {
-    public static final String DATABASE_NAME = "math4kids.db";
-    public static final int DB_VERSION = 1;
-    public static final String TABLE_SETTINGS = "Settings";
-    public static final String COL01 = "Music_on";
-    public static final String COL02 = "SoundEffects_on";
+    private static final String DATABASE_NAME = "math4kids.db";
+    private static final int DB_VERSION = 1;
+    private static final String TABLE_SETTINGS = "Settings";
+    private static final String COL01 = "Music_on";
+    private static final String COL02 = "SoundEffects_on";
 
-    public static final String TABLE_QUESTIONS = "Questions";
-    public static final String COL11 = "Difficulty";
-    public static final String COL12 = "Lesson";
+    private static final String TABLE_QUESTIONS = "Questions";
+    private static final String COL11 = "Difficulty";
+    private static final String COL12 = "Lesson";
+    /*
     public static final String COL13  = "AnswerType";
     public static final String COL14 = "Question";
     public static final String COL15 = "Answer";
@@ -33,9 +34,9 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COL18 = "is_Dog";
     public static final String COL19 = "BackgroundColor";
     public static final String COL20 = "PossibleAnswers";
+    */
 
-
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
 
     //Singleton design pattern
 
@@ -352,6 +353,12 @@ public class DbHelper extends SQLiteOpenHelper
         cur.close();
         db.close();
         return questions;
+    }
+    
+    //DatabaseHelper.getsInstance(getApplicationContext()).death();
+    public void death(Context context)
+    {
+        context.deleteDatabase(DATABASE_NAME);
     }
 
 }
