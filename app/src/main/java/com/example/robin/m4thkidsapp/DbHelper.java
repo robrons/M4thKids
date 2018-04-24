@@ -353,5 +353,11 @@ public class DbHelper extends SQLiteOpenHelper
         db.close();
         return questions;
     }
+    
+    //DatabaseHelper.getsInstance(getApplicationContext()).death();
+    public void death(Context context)
+    {
+        context.deleteDatabase(DATABASE_NAME);
+    }
 
 }
