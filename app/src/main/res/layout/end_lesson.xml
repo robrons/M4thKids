@@ -24,6 +24,7 @@
         app:layout_constraintGuide_percent="0.84" />
 
     <TextView
+        android:layout_marginRight="16dp"
         android:id="@+id/endlessoncongrats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -34,6 +35,7 @@
         android:backgroundTint="@android:color/background_dark"
         android:fontFamily="serif"
         android:text="You Have Finished The Lesson!! Way To Go!!"
+        android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/orange"
         android:textSize="30sp"

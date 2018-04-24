@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -41,11 +42,27 @@ public class Questions extends AppCompatActivity {
         myDialog = new Dialog(this);
         mainview = (ConstraintLayout) this.findViewById(R.id.questions);
        //get "subtable"
-       questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withLesson(topic);
+       questionSet = new ArrayList<List<String>>();
 
-       //make list with question Ids
+        String [] array1= {"Medium", "adding", "multiple choice", "Sally has *BLANK* apples. She gets another *BLANK* from Bill, and *BLANK* from Kate. How many does she have now?", null, null, "green", "no", "Yes", "no"};
+        List<String> list1 = Arrays.asList(array1);
+        String[] array2= {"Medium", "adding", "multiple choice", "*BLANK* + *BLANK* = ?", null, null, "green", "no", "Yes", "no"};
+        List<String> list2 = Arrays.asList(array2);
+        String[] array3= {"Medium", "adding", "multiple choice", "*BLANK* + *BLANK* + *BLANK* + *BLANK* = ?", null, null, "green", "no", "Yes", "no"};
+        List<String> list3 = Arrays.asList(array3);
+        String[] array4= {"Medium", "adding", "multiple choice", "*BLANK* bananas + *BLANK* bananas = ? bananas", null, null, "green", "no", "Yes", "no"};
+        List<String> list4 = Arrays.asList(array4);
+        String[] array5 = {"Medium", "adding", "multiple choice", " It’s your birthday! If you started with *BLANK* video games, got *BLANK* more video games from your friends, *BLANK*  from your parents, how many video games do you have now?* ", null, null, "green", "no", "Yes", "no"};
+
+        questionSet.add(list1);
+        questionSet.add(list2);
+        questionSet.add(list3);
+        questionSet.add(list4);
+
+
+        //make list with question Ids
        qID = new ArrayList<>();
-       for (int i = 0; i < 10; i++) {
+       for (int i = 0; i < 4; i++) {
            qID.add(i);
        }
 
@@ -57,7 +74,7 @@ public class Questions extends AppCompatActivity {
    public void goThroughQuestions(View v)
    {
        //for loop to loop through the number of questions in a lesson (its 5 questions right now)
-       if(questionsCompleted < 5) {
+       if(questionsCompleted < 4) {
 
            //pulls the random question from the subtable
            List<String> question = questionSet.get(qID.get(questionsCompleted));
@@ -97,10 +114,10 @@ public class Questions extends AppCompatActivity {
   void createQuestionInfo(List<String> question)
    {
             //Check Question Type
-            if(question.get(0).equals("multiple choice"))
+            if(question.get(2).equals("multiple choice"))
             {
                 //generates the completed question without the *BLANK* (basically it comes up with the numbers
-                completeQuestion = generateQuestion(question.get(1), "multiple choice");
+                completeQuestion = generateQuestion(question.get(3), "multiple choice");
 
                 //This takes the random numbers and generates the answer (and potentially possible answers) for the question
                 answers = generateAnswers(completeQuestion, "multiple choice");
