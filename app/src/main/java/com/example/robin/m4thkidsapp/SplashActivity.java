@@ -77,7 +77,7 @@ public class SplashActivity extends AppCompatActivity {
               }
 
 
-              String [] array6= {"Easy", "divide", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+              String [] array6= {"Easy", "divide", "multiple choice", "*BLANK* / *BLANK* is how much?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);

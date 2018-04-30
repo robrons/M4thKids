@@ -102,8 +102,10 @@ public class Questions extends AppCompatActivity {
                 //generates the completed question without the *BLANK* (basically it comes up with the numbers
                 completeQuestion = generateQuestion(question.get(1), "multiple choice");
 
-                //This takes the random numbers and generates the answer (and potentially possible answers) for the question
-                answers = generateAnswers(completeQuestion, "multiple choice");
+
+                    //This takes the random numbers and generates the answer (and potentially possible answers) for the question
+                    answers = generateAnswers(completeQuestion, "multiple choice");
+
                 displayMulitpleChoice();
 
 
@@ -156,12 +158,36 @@ public class Questions extends AppCompatActivity {
               min = answer - 10;
 
              if (min < 0)
-                 min = 0;
+                 min = min * -1;
 
 
              //Loops for number of possible answers it will display (Right now thats 4)
 
          }
+            if (topic.equals("divide"))
+            {
+                answer = Integer.parseInt(numbers.get(1).toString());
+                //calculates answer by adding all the numbers that were generated
+                for(int i = 2; i < numbers.size(); i++)
+                {
+                    answer /= Integer.parseInt(numbers.get(i).toString());
+                }
+                finalAnswer = Integer.toString(answer);
+                //adds answer to the list of possible answers
+                answers.add(answer);
+
+                //max bound for possible answer
+                max = answer + 10;
+                //min bound for possible answer
+                min = answer - 10;
+
+                if (min < 0)
+                    min = min * -1;
+
+
+                //Loops for number of possible answers it will display (Right now thats 4)
+
+            }
             if (topic.equals("times"))
             {
                 answer = 1;
@@ -180,7 +206,7 @@ public class Questions extends AppCompatActivity {
                  min = answer - 10;
 
                 if (min < 0)
-                    min = 0;
+                    min = min * -1;
             }
 
 
@@ -217,13 +243,33 @@ public class Questions extends AppCompatActivity {
         {
             //finds how many *BLANK*s so it knows how many numbers to generate
             int numOfNumbers = countOccurrences(question, "*BLANK*");
-
+            int randNum = 1;
             //makes a list and populates it with that many random numbers for 0-10
             List n = new ArrayList();
+            if(topic.equals("divide"))
+            {
+                    Random rand = new Random();
+                    int rand1 = rand.nextInt(9) + 1;
+                    n.add(rand1);
+                for(int i=0; n.size() < numOfNumbers; i++)
+                {
+
+                    rand1 = Integer.parseInt(n.get(0).toString());
+                    int rand2 = rand.nextInt(9)+1;
+                    n.remove(0);
+                    n.add(0, rand2);
+                    n.add(0, rand1*rand2);
+
+
+                   // n.add(rand.nextInt(10));
+                }
+            }
+            else{
             for(int i=0; i < numOfNumbers; i++)
             {
                 Random rand = new Random();
                 n.add(rand.nextInt(10));
+            }
             }
 
             //newQuestion will be the qustion with the *BLANk*s filled in with the rand generated
