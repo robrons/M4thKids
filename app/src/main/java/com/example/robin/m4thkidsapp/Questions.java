@@ -45,7 +45,7 @@ public class Questions extends AppCompatActivity {
 
        //make list with question Ids
        qID = new ArrayList<>();
-       for (int i = 0; i < 10; i++) {
+       for (int i = 0; i < 5; i++) {
            qID.add(i);
        }
 
@@ -133,7 +133,8 @@ public class Questions extends AppCompatActivity {
         //this will the list it returns
         List<Integer> answers = new ArrayList();
         int answer = 0;
-
+        int min = 0;
+        int max = 0;
         //checks question type
         if(questionType.equals("multiple choice"))
         {
@@ -150,12 +151,38 @@ public class Questions extends AppCompatActivity {
              answers.add(answer);
 
              //max bound for possible answer
-             int max = answer + 10;
+              max = answer + 10;
              //min bound for possible answer
-             int min = answer - 10;
+              min = answer - 10;
 
              if (min < 0)
+                 min = 0;
+
+
+             //Loops for number of possible answers it will display (Right now thats 4)
+
+         }
+            if (topic.equals("times"))
+            {
+                answer = 1;
+                //calculates answer by adding all the numbers that were generated
+                for(int i = 1; i < numbers.size(); i++)
+                {
+                    answer *= Integer.parseInt(numbers.get(i).toString());
+                }
+                finalAnswer = Integer.toString(answer);
+                //adds answer to the list of possible answers
+                answers.add(answer);
+
+                //max bound for possible answer
+                 max = answer + 10;
+                //min bound for possible answer
+                 min = answer - 10;
+
+                if (min < 0)
                     min = 0;
+            }
+
 
 
              //Loops for number of possible answers it will display (Right now thats 4)
@@ -180,7 +207,7 @@ public class Questions extends AppCompatActivity {
 
              //adds answer again to the end so the calling function can know what the answer is
              answers.add(answer);
-         }
+
         }
         return answers;
     }

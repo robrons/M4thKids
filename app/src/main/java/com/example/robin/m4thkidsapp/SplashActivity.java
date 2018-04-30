@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
 
               DbHelper.getsInstance(getApplicationContext()).initialSound();
 
-              String [] array1= {"Easy", "comparing", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+              String [] array1= {"Easy", "comparing", "multiple choice", "Sally has *BLANK* apples. She gets another *BLANK* from Bill, and *BLANK* from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                   DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
               }
 
-              String [] array2= {"Easy", "counting", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+              String [] array2= {"Easy", "counting", "multiple choice", "Sally has *BLANK* apples. She gets another *BLANK* from Bill, and *BLANK* from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
@@ -42,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
                   DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
               }
 
-              String [] array3= {"Easy", "adding", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+              String [] array3= {"Easy", "adding", "multiple choice", "Sally has *BLANK* apples. She gets another *BLANK* from Bill, and *BLANK* from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
@@ -65,7 +65,7 @@ public class SplashActivity extends AppCompatActivity {
               }
 
 
-              String [] array5= {"Easy", "times", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+              String [] array5= {"Easy", "times", "multiple choice", "*BLANK* x *BLANK* is how much?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
