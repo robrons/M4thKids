@@ -338,8 +338,10 @@ public class Questions extends AppCompatActivity {
                     count = count + 1;
                 }
                 }
-                else
+                else {
                     n.add(randnum);
+                    count = count + 1;
+                }
 
             }
             }
