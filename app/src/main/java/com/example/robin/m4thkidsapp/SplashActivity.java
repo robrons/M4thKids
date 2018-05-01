@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -20,74 +22,21 @@ public class SplashActivity extends AppCompatActivity {
 
               DbHelper.getsInstance(getApplicationContext()).initialSound();
 
-              String [] array1= {"Easy", "comparing", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
+              String [] arrayAnswers1 = new String[] {"Sally", "Bill", "Kate", "Joe"};
+              String [] array1= {"Easy", "comparing", "multiple choice", "Sally has *BLANK* apples. Bill has *BLANK* apples. Kate has *BLANK* apples. Joe has *BLANK* apples. Who has the *MOST* apples?", null, Arrays.toString(arrayAnswers1), "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
 
-              for(int i = 0; i <= 19; i++) {
-                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
-              }
-
-              String [] array2= {"Easy", "counting", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
+              String [] arrayAnswers2 = new String[] {"Jill”, “Sara”, “Carol”, “Vicky"};
+              String [] array2= {"Easy", "comparing", "multiple choice", "Jill has *BLANK* cats. Sara has *BLANK* cats. Carol has *BLANK* cats. Vicky has *BLANK* cats. Who has the *MOST* cats?", null, Arrays.toString(arrayAnswers2), "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
 
-              for(int i = 0; i <= 19; i++) {
-                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array2);
-              }
-
-              String [] array3= {"Easy", "adding", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
+              String [] arrayAnswers3 = new String[] {"Zebras”, “Elephants", "Lions", "Gorillas"};
+              String [] array3= {"Easy", "comparing", "multiple choice", "The zoo has *BLANK* zebras. It also has *BLANK* elephants, *BLANK* lions, and *BLANK* gorillas. Are there *MORE* zebras, elephants, lions, or gorillas at the zoo?", null, Arrays.toString(arrayAnswers3), "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
 
-              for(int i = 0; i <= 19; i++) {
-                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array3);
-              }
-
-              String [] array4= {"Easy", "subtraction", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+              String [] arrayAnswers4 = {"frisbees”, “soccer balls”, “footballs”, “basketballs"};
+              String [] array4= {"Easy", "comparing", "multiple choice", "Jeremy has *BLANK* frisbees, *BLANK* soccer balls, *BLANK* footballs, and *BLANK* basketballs in his garage. Which does he have the *LEAST* of?", null, Arrays.toString(arrayAnswers4), "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
-
-              for(int i = 0; i <= 19; i++) {
-                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array4);
-              }
-
-
-              String [] array5= {"Easy", "times", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
-
-              for(int i = 0; i <= 19; i++) {
-                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array5);
-              }
-
-
-              String [] array6= {"Easy", "divide", "multiple choice", "Sally has 2 apples. She gets another 1 from Bill, and two from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
-              DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
-
-              for(int i = 0; i <= 19; i++) {
-                  DbHelper.getsInstance(getApplicationContext()).addQuestion(array6);
-              }
-
 
 
           }
