@@ -104,7 +104,7 @@ public class Questions extends AppCompatActivity {
 
 
                     //This takes the random numbers and generates the answer (and potentially possible answers) for the question
-                    answers = generateAnswers(completeQuestion, "multiple choice");
+                    answers = generateAnswers(completeQuestion, "multiple choice", question.get(3));
 
                 displayMulitpleChoice();
 
@@ -130,7 +130,7 @@ public class Questions extends AppCompatActivity {
     //no the question so it needs to start at 1 when getting info from numbers list
     //it takes in the question type so it knows if it needs to make possible answers (for multiple
     //choice) or if the answer needs the be a word like "ten" or a number like "10"
-    List generateAnswers(List numbers, String questionType)
+    List generateAnswers(List numbers, String questionType, String answer_names)
     {
         //this will the list it returns
         List<Integer> answers = new ArrayList();
@@ -140,7 +140,67 @@ public class Questions extends AppCompatActivity {
         //checks question type
         if(questionType.equals("multiple choice"))
         {
+
          //checks topic so that it knows which operation it needs to preform to find the answer
+            if (topic.equals("comparing"))
+            {
+                int compareGreater = 0;
+                answer = 0;
+                answer_names.replace("[", "");
+                answer_names.replace("]", "");
+                answer_names.replace(" ", "");
+
+                System.out.println(answer_names);
+
+                String names[] = answer_names.substring(1, answer_names.length()-1).split(",");
+                String str2[] = answer_names.split(",");
+
+                //calculates answer by adding all the numbers that were generated
+                if(completeQuestion.get(0).toString().contains("*MOST*"))
+                {
+                    completeQuestion.add(0, completeQuestion.get(0).toString().replaceFirst(Pattern.quote("*MOST*"), "most"));
+                    completeQuestion.remove(1);
+                    compareGreater = 1;
+                    answer = 1;
+                }
+                else
+                {
+                    completeQuestion.add(0, completeQuestion.get(0).toString().replaceFirst(Pattern.quote("*LEAST*"), "least"));
+                    completeQuestion.remove(1);
+                    compareGreater = 0;
+                    answer = 1;
+                }
+                for(int i = 1; i < numbers.size(); i++) {
+                    if (compareGreater == 1)
+                    {
+                        int one = Integer.parseInt(numbers.get(i).toString());
+                        int two = Integer.parseInt(numbers.get(answer+1).toString());
+                        if(one > two)
+                            answer = i - 1;
+                    }
+                    else {
+                        if (Integer.parseInt(numbers.get(i).toString()) < Integer.parseInt(numbers.get(answer+1).toString()))
+                            answer = i - 1;
+                    }
+                }
+                finalAnswer = names[answer];
+                //adds answer to the list of possible answers
+                List <String> answerString = new ArrayList<>();
+               for (int i = 0; i < 4; i ++)
+               {
+                answerString.add(names[i]);
+
+                }
+
+                //shuffles the array of possible answers so they will be displayed in a random order
+                Collections.shuffle(answerString);
+
+                //adds answer again to the end so the calling function can know what the answer is
+                answerString.add(finalAnswer);
+                return answerString;
+
+
+            }
          if (topic.equals("adding"))
          {
              //calculates answer by adding all the numbers that were generated
@@ -264,11 +324,23 @@ public class Questions extends AppCompatActivity {
                    // n.add(rand.nextInt(10));
                 }
             }
+
             else{
-            for(int i=0; i < numOfNumbers; i++)
+                int count = 0;
+            while(count < numOfNumbers)
             {
                 Random rand = new Random();
-                n.add(rand.nextInt(10));
+                int randnum = rand.nextInt(10);
+                if(topic.equals("comparing"))
+                { if(!n.contains(randnum)) {
+                    //add a random possible answer to the list
+                    n.add(randnum);
+                    count = count + 1;
+                }
+                }
+                else
+                    n.add(randnum);
+
             }
             }
 

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -20,7 +22,8 @@ public class SplashActivity extends AppCompatActivity {
 
               DbHelper.getsInstance(getApplicationContext()).initialSound();
 
-              String [] array1= {"Easy", "comparing", "multiple choice", "Sally has *BLANK* apples. She gets another *BLANK* from Bill, and *BLANK* from Kate. How many does she have now?", "5", "4, 3, 5, 0", "green", "no", "Yes", "no"};
+              String [] arrayAnswers = {"Sally", "Bill", "Kate", "Joe"};
+              String [] array1= {"Easy", "comparing", "multiple choice", "Sally has *BLANK* apples. Bill has *BLANK* apples. Kate has *BLANK* apples. Joe has *BLANK* apples. Who has the *MOST* apples?", null, Arrays.toString(arrayAnswers), "green", "no", "Yes", "no"};
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
               DbHelper.getsInstance(getApplicationContext()).addQuestion(array1);
