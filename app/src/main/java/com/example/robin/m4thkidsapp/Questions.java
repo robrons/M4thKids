@@ -201,85 +201,54 @@ public class Questions extends AppCompatActivity {
 
 
             }
-         if (topic.equals("adding"))
-         {
+         else if (topic.equals("adding")) {
              //calculates answer by adding all the numbers that were generated
-             for(int i = 1; i < numbers.size(); i++)
-             {
+             for (int i = 1; i < numbers.size(); i++) {
                  answer += Integer.parseInt(numbers.get(i).toString());
              }
+         }
+            else if (topic.equals("subing")) {
+                answer = Integer.parseInt(numbers.get(1).toString());
+                //calculates answer by adding all the numbers that were generated
+                for (int i = 2; i < numbers.size(); i++) {
+                    answer -= Integer.parseInt(numbers.get(i).toString());
+                }
+            }
+           else if (topic.equals("divide")) {
+                answer = Integer.parseInt(numbers.get(1).toString());
+                //calculates answer by adding all the numbers that were generated
+                for (int i = 2; i < numbers.size(); i++) {
+                    answer /= Integer.parseInt(numbers.get(i).toString());
+                }
+            }
+            else if (topic.equals("times")) {
+                answer = 1;
+                //calculates answer by adding all the numbers that were generated
+                for (int i = 1; i < numbers.size(); i++) {
+                    answer *= Integer.parseInt(numbers.get(i).toString());
+                }
+            }
              finalAnswer = Integer.toString(answer);
              //adds answer to the list of possible answers
              answers.add(answer);
 
              //max bound for possible answer
-              max = answer + 10;
+             max = answer + 10;
              //min bound for possible answer
-              min = answer - 10;
+             min = answer - 10;
 
              if (min < 0)
                  min = min * -1;
 
 
              //Loops for number of possible answers it will display (Right now thats 4)
-
-         }
-            if (topic.equals("divide"))
-            {
-                answer = Integer.parseInt(numbers.get(1).toString());
-                //calculates answer by adding all the numbers that were generated
-                for(int i = 2; i < numbers.size(); i++)
-                {
-                    answer /= Integer.parseInt(numbers.get(i).toString());
-                }
-                finalAnswer = Integer.toString(answer);
-                //adds answer to the list of possible answers
-                answers.add(answer);
-
-                //max bound for possible answer
-                max = answer + 10;
-                //min bound for possible answer
-                min = answer - 10;
-
-                if (min < 0)
-                    min = min * -1;
-
-
-                //Loops for number of possible answers it will display (Right now thats 4)
-
-            }
-            if (topic.equals("times"))
-            {
-                answer = 1;
-                //calculates answer by adding all the numbers that were generated
-                for(int i = 1; i < numbers.size(); i++)
-                {
-                    answer *= Integer.parseInt(numbers.get(i).toString());
-                }
-                finalAnswer = Integer.toString(answer);
-                //adds answer to the list of possible answers
-                answers.add(answer);
-
-                //max bound for possible answer
-                 max = answer + 10;
-                //min bound for possible answer
-                 min = answer - 10;
-
-                if (min < 0)
-                    min = min * -1;
-            }
-
-
-
-             //Loops for number of possible answers it will display (Right now thats 4)
              int count = 0;
-             while(count != 3)
-             {
+             while (count != 3) {
 
                  Random rand = new Random();
                  int randNum = rand.nextInt(max + 1 - min) + min;
 
-                 if(!answers.contains(randNum)) {
+                 if (!answers.contains(randNum)) {
                      //add a random possible answer to the list
                      answers.add(randNum);
                      count = count + 1;
@@ -289,12 +258,12 @@ public class Questions extends AppCompatActivity {
              }
 
              //shuffles the array of possible answers so they will be displayed in a random order
-            Collections.shuffle(answers);
+             Collections.shuffle(answers);
 
              //adds answer again to the end so the calling function can know what the answer is
              answers.add(answer);
+         }
 
-        }
         return answers;
     }
 
@@ -306,7 +275,7 @@ public class Questions extends AppCompatActivity {
             int randNum = 1;
             //makes a list and populates it with that many random numbers for 0-10
             List n = new ArrayList();
-            if(topic.equals("divide"))
+            if(topic.equals("divide") || topic.equals("subing"))
             {
                     Random rand = new Random();
                     int rand1 = rand.nextInt(9) + 1;
@@ -318,7 +287,10 @@ public class Questions extends AppCompatActivity {
                     int rand2 = rand.nextInt(9)+1;
                     n.remove(0);
                     n.add(0, rand2);
-                    n.add(0, rand1*rand2);
+                    if(topic.equals("subing"))
+                        n.add(0, rand1+rand2);
+                    else
+                         n.add(0, rand1*rand2);
 
 
                    // n.add(rand.nextInt(10));
@@ -326,6 +298,7 @@ public class Questions extends AppCompatActivity {
             }
 
             else{
+
                 int count = 0;
             while(count < numOfNumbers)
             {
@@ -336,6 +309,10 @@ public class Questions extends AppCompatActivity {
                     //add a random possible answer to the list
                     n.add(randnum);
                     count = count + 1;
+                }
+                if(topic.equals("subing"))
+                {
+
                 }
                 }
                 else {
