@@ -52,7 +52,7 @@ public class SplashActivity extends AppCompatActivity {
             String [] array9= {"Easy", "counting", "multiple choice", "What number comes *AFTER* *BLANK* ?", null, null, "green", "no", "Yes", "no"};
             DbHelper.getsInstance(getApplicationContext()).addQuestion(array9);
 
-            String [] array10= {"Medium", "addition", "multiple choice", "*BLANK* + *BLANK* = ?", null, null, "green", "no", "Yes", "no"};
+            String [] array10= {"Medium", "adding", "multiple choice", "*BLANK* + *BLANK* = ?", null, null, "green", "no", "Yes", "no"};
             DbHelper.getsInstance(getApplicationContext()).addQuestion(array10);
 
             String [] array11= {"Medium", "adding", "multiple choice", "*BLANK* + *BLANK* + *BLANK* + *BLANK* = ?", null, null, "green", "no", "Yes", "no"};
