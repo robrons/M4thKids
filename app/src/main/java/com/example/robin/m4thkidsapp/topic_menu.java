@@ -43,10 +43,6 @@ public class topic_menu extends AppCompatActivity {
     public void buttonOnClick(View v) {
         Questions.topic = ((Button) v).getText().toString();
         Questions.level = level;
-        if(Questions.topic.equals("Review") || Questions.topic.equals("Logic"))
-        {
-            Questions.topic += level;
-        }
         Intent intent = new Intent(this, Questions.class);
         startActivity(intent);
     }
