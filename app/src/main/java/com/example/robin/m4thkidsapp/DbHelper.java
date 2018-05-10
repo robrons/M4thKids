@@ -16,16 +16,15 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper
 {
-    private static final String DATABASE_NAME = "math4kids.db";
-    private static final int DB_VERSION = 1;
-    private static final String TABLE_SETTINGS = "Settings";
-    private static final String COL01 = "Music_on";
-    private static final String COL02 = "SoundEffects_on";
+    public static final String DATABASE_NAME = "math4kids.db";
+    public static final int DB_VERSION = 1;
+    public static final String TABLE_SETTINGS = "Settings";
+    public static final String COL01 = "Music_on";
+    public static final String COL02 = "SoundEffects_on";
 
-    private static final String TABLE_QUESTIONS = "Questions";
-    private static final String COL11 = "Difficulty";
-    private static final String COL12 = "Lesson";
-    /*
+    public static final String TABLE_QUESTIONS = "Questions";
+    public static final String COL11 = "Difficulty";
+    public static final String COL12 = "Lesson";
     public static final String COL13  = "AnswerType";
     public static final String COL14 = "Question";
     public static final String COL15 = "Answer";
@@ -34,9 +33,9 @@ public class DbHelper extends SQLiteOpenHelper
     public static final String COL18 = "is_Dog";
     public static final String COL19 = "BackgroundColor";
     public static final String COL20 = "PossibleAnswers";
-    */
 
-    private SQLiteDatabase db;
+
+    SQLiteDatabase db;
 
     //Singleton design pattern
 
@@ -264,6 +263,7 @@ public class DbHelper extends SQLiteOpenHelper
                 for (int i = 0; i < columns.length; i++) {
                     temp = cur.getString(i);
                     theRow.add(temp);
+
                 }
             } while (cur.moveToNext());
 
@@ -288,27 +288,28 @@ public class DbHelper extends SQLiteOpenHelper
         List<List<String>> questions = new ArrayList<>();
 
         db = getReadableDatabase();
-        String [] columns = {"Lesson", "AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
+        String [] columns = {"AnswerType", "Lesson", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
 
         Cursor cur = db.query(TABLE_QUESTIONS, columns, COL11 + " = \"" + difficulty+ "\"", null, null, null, null, null);
         List<String> theRow = new ArrayList<String>();
         int x = 0;
 
-            if (cur.moveToFirst())
+        if (cur.moveToFirst())
+        {
+            String temp;
+
+            do
             {
-                String temp;
-
-                do
+                for (int i = 0; i < columns.length; i++)
                 {
-                    for (int i = 0; i < columns.length; i++)
-                    {
-                        temp = cur.getString(i);
-                        theRow.add(temp);
-                    }
-                    questions.add(theRow);
-                } while (cur.moveToNext());
+                    temp = cur.getString(i);
+                    theRow.add(temp);
+                }
+                questions.add(theRow);
+                theRow = new ArrayList<String>();
+            } while (cur.moveToNext());
 
-            }
+        }
 
         cur.close();
         db.close();
@@ -328,7 +329,7 @@ public class DbHelper extends SQLiteOpenHelper
         List<List<String>> questions = new ArrayList<>();
 
         db = getReadableDatabase();
-        String [] columns = {"AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
+        String [] columns = {"AnswerType", "Lesson", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
 
         Cursor cur = db.query(TABLE_QUESTIONS, columns, COL12 + " = \"" + lesson+ "\"", null, null, null, null, null);
         List<String> theRow = new ArrayList<String>();
@@ -340,12 +341,14 @@ public class DbHelper extends SQLiteOpenHelper
 
             do
             {
+                int size = columns.length;
                 for (int i = 0; i < columns.length; i++)
                 {
                     temp = cur.getString(i);
                     theRow.add(temp);
                 }
                 questions.add(theRow);
+                theRow = new ArrayList<String>();
             } while (cur.moveToNext());
 
         }
@@ -354,7 +357,7 @@ public class DbHelper extends SQLiteOpenHelper
         db.close();
         return questions;
     }
-    
+
     //DatabaseHelper.getsInstance(getApplicationContext()).death();
     public void death(Context context)
     {

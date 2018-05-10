@@ -11,12 +11,10 @@
 
     <Button
         android:id="@+id/sound"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:layout_marginEnd="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginRight="150dp"
         android:layout_marginStart="150dp"
         android:layout_marginTop="500dp"
         android:background="@color/darkpurple"
@@ -33,12 +31,10 @@
 
     <Button
         android:id="@+id/nosound"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="200dp"
         android:layout_marginEnd="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginRight="150dp"
         android:layout_marginStart="150dp"
         android:layout_marginTop="400dp"
         android:background="@color/darkpurple"
