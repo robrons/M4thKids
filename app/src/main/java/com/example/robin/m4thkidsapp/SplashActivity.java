@@ -80,13 +80,13 @@ public class SplashActivity extends AppCompatActivity {
             String [] array18= {"Hard", "times", "multiple choice", "*BLANK* x *BLANK* is how much?", null, null, "green", "no", "Yes", "no"};
             DbHelper.getsInstance(getApplicationContext()).addQuestion(array18);
 
-            String [] array19= {"Medium", "times", "multiple choice", "*BLANK* groups of *BLANK* is how many total?", null, null, "green", "no", "Yes", "no"};
+            String [] array19= {"Hard", "times", "multiple choice", "*BLANK* groups of *BLANK* is how many total?", null, null, "green", "no", "Yes", "no"};
             DbHelper.getsInstance(getApplicationContext()).addQuestion(array19);
 
-            String [] array20= {"Medium", "divide", "multiple choice", "*BLANK* / *BLANK* = ?", null, null, "green", "no", "Yes", "no"};
+            String [] array20= {"Hard", "divide", "multiple choice", "*BLANK* / *BLANK* = ?", null, null, "green", "no", "Yes", "no"};
             DbHelper.getsInstance(getApplicationContext()).addQuestion(array20);
 
-            String [] array21= {"Medium", "divide", "multiple choice", "*BLANK* pieces of candy are divided into *BLANK* piles, how many pieces are in each pile?", null, null, "green", "no", "Yes", "no"};
+            String [] array21= {"Hard", "divide", "multiple choice", "*BLANK* pieces of candy are divided into *BLANK* piles, how many pieces are in each pile?", null, null, "green", "no", "Yes", "no"};
             DbHelper.getsInstance(getApplicationContext()).addQuestion(array21);
 
 
