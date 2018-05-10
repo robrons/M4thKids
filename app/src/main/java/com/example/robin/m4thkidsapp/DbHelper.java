@@ -263,6 +263,7 @@ public class DbHelper extends SQLiteOpenHelper
                 for (int i = 0; i < columns.length; i++) {
                     temp = cur.getString(i);
                     theRow.add(temp);
+
                 }
             } while (cur.moveToNext());
 
@@ -287,7 +288,7 @@ public class DbHelper extends SQLiteOpenHelper
         List<List<String>> questions = new ArrayList<>();
 
         db = getReadableDatabase();
-        String [] columns = {"Lesson", "AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
+        String [] columns = {"AnswerType", "Lesson", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
 
         Cursor cur = db.query(TABLE_QUESTIONS, columns, COL11 + " = \"" + difficulty+ "\"", null, null, null, null, null);
         List<String> theRow = new ArrayList<String>();
@@ -305,6 +306,7 @@ public class DbHelper extends SQLiteOpenHelper
                         theRow.add(temp);
                     }
                     questions.add(theRow);
+                    theRow = new ArrayList<String>();
                 } while (cur.moveToNext());
 
             }
@@ -327,7 +329,7 @@ public class DbHelper extends SQLiteOpenHelper
         List<List<String>> questions = new ArrayList<>();
 
         db = getReadableDatabase();
-        String [] columns = {"AnswerType", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
+        String [] columns = {"AnswerType", "Lesson", "Question", "Answer", "PossibleAnswers", "BackgroundColor", "is_Dog", "is_Icecream", "is_Cat"};
 
         Cursor cur = db.query(TABLE_QUESTIONS, columns, COL12 + " = \"" + lesson+ "\"", null, null, null, null, null);
         List<String> theRow = new ArrayList<String>();
@@ -339,12 +341,14 @@ public class DbHelper extends SQLiteOpenHelper
 
             do
             {
+                int size = columns.length;
                 for (int i = 0; i < columns.length; i++)
                 {
                     temp = cur.getString(i);
                     theRow.add(temp);
                 }
                 questions.add(theRow);
+                theRow = new ArrayList<String>();
             } while (cur.moveToNext());
 
         }

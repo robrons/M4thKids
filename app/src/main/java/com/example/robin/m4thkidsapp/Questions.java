@@ -40,14 +40,35 @@ public class Questions extends AppCompatActivity {
         setContentView(R.layout.activity_questions);
         myDialog = new Dialog(this);
         mainview = (ConstraintLayout) this.findViewById(R.id.questions);
-       //get "subtable"
-       questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withLesson(topic);
+       //get "subtable
+        if(topic.equals("Review")) {
+            String difficultyString = "Easy";
+            switch(level) {
+                case 0: difficultyString = "Easy";
+                        break;
+                case 1: difficultyString = "Medium";
+                        break;
+                case 2: difficultyString = "Hard";
+                        break;
+            }
+            questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withDifficulty(difficultyString);
 
-       //make list with question Ids
-       qID = new ArrayList<>();
-       for (int i = 0; i < 5; i++) {
-           qID.add(i);
-       }
+        }
+            else {
+            questionSet = DbHelper.getsInstance(getApplicationContext()).grabQuestion_withLesson(topic);
+        }
+            //make list with question Ids
+            qID = new ArrayList<>();
+            for (int i = 0; i < questionSet.size(); i++) {
+                qID.add(i);
+            }
+            if (questionSet.size() < 5) {
+                for(int i = questionSet.size(); i < 5; i++)
+                {
+                    qID.add(i%questionSet.size());
+            }
+
+        }
 
        //shuffle list so questions are in a different order each times
        Collections.shuffle(qID);
@@ -99,12 +120,13 @@ public class Questions extends AppCompatActivity {
             //Check Question Type
             if(question.get(0).equals("multiple choice"))
             {
+                topic = question.get(1);
                 //generates the completed question without the *BLANK* (basically it comes up with the numbers
-                completeQuestion = generateQuestion(question.get(1), "multiple choice");
+                completeQuestion = generateQuestion(question.get(2), "multiple choice");
 
 
                     //This takes the random numbers and generates the answer (and potentially possible answers) for the question
-                    answers = generateAnswers(completeQuestion, "multiple choice", question.get(3));
+                    answers = generateAnswers(completeQuestion, "multiple choice", question.get(4));
 
                 displayMulitpleChoice();
 
@@ -225,7 +247,7 @@ public class Questions extends AppCompatActivity {
                  answer += Integer.parseInt(numbers.get(i).toString());
              }
          }
-            else if (topic.equals("subing")) {
+            else if (topic.equals("subtracting")) {
                 answer = Integer.parseInt(numbers.get(1).toString());
                 //calculates answer by adding all the numbers that were generated
                 for (int i = 2; i < numbers.size(); i++) {
@@ -293,7 +315,7 @@ public class Questions extends AppCompatActivity {
             int randNum = 1;
             //makes a list and populates it with that many random numbers for 0-10
             List n = new ArrayList();
-            if(topic.equals("divide") || topic.equals("subing"))
+            if(topic.equals("divide") || topic.equals("subtracting"))
             {
                     Random rand = new Random();
                     int rand1 = rand.nextInt(9) + 1;
@@ -305,7 +327,7 @@ public class Questions extends AppCompatActivity {
                     int rand2 = rand.nextInt(9)+1;
                     n.remove(0);
                     n.add(0, rand2);
-                    if(topic.equals("subing"))
+                    if(topic.equals("subtracting"))
                         n.add(0, rand1+rand2);
                     else
                          n.add(0, rand1*rand2);

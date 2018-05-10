@@ -28,7 +28,7 @@ public class topic_menu extends AppCompatActivity {
         }
         if (level == 1) {
             button.setText(R.string.adding);
-            button2.setText(R.string.subing);
+            button2.setText(R.string.subtracting);
         }
         if (level == 2) {
             button.setText(R.string.times);
@@ -43,10 +43,10 @@ public class topic_menu extends AppCompatActivity {
     public void buttonOnClick(View v) {
         Questions.topic = ((Button) v).getText().toString();
         Questions.level = level;
-        if(Questions.topic.equals("Review") || Questions.topic.equals("Logic"))
+       /* if(Questions.topic.equals("Review") || Questions.topic.equals("Logic"))
         {
             Questions.topic += level;
-        }
+        }*/
         Intent intent = new Intent(this, Questions.class);
         startActivity(intent);
     }
