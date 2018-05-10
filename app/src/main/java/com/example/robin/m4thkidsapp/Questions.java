@@ -140,9 +140,27 @@ public class Questions extends AppCompatActivity {
         //checks question type
         if(questionType.equals("multiple choice"))
         {
+            //checks topic so that it knows which operation it needs to preform to find the answer
 
-         //checks topic so that it knows which operation it needs to preform to find the answer
-            if (topic.equals("comparing"))
+            if(topic.equals("counting"))
+            {
+                int direction = 0;
+                if(completeQuestion.get(0).toString().contains("*BEFORE*"))
+                {
+                    completeQuestion.add(0, completeQuestion.get(0).toString().replaceFirst(Pattern.quote("*BEFORE*"), "before"));
+                    completeQuestion.remove(1);
+                    direction = -1;
+                }
+                else if(completeQuestion.get(0).toString().contains("*AFTER*"))
+                {
+                    completeQuestion.add(0, completeQuestion.get(0).toString().replaceFirst(Pattern.quote("*AFTER*"), "after"));
+                    completeQuestion.remove(1);
+                    direction = 1;
+                }
+                answer = Integer.parseInt(numbers.get(1).toString()) + direction;
+            }
+
+            else if (topic.equals("comparing"))
             {
                 int compareGreater = 0;
                 answer = 0;
@@ -303,17 +321,18 @@ public class Questions extends AppCompatActivity {
             while(count < numOfNumbers)
             {
                 Random rand = new Random();
-                int randnum = rand.nextInt(10);
+                int randnum = 0;
+                if(topic.equals("counting"))
+                     randnum = rand.nextInt(49) + 1;
+                else
+                    randnum = rand.nextInt(10);
                 if(topic.equals("comparing"))
                 { if(!n.contains(randnum)) {
                     //add a random possible answer to the list
                     n.add(randnum);
                     count = count + 1;
                 }
-                if(topic.equals("subing"))
-                {
 
-                }
                 }
                 else {
                     n.add(randnum);
